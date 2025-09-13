@@ -3,6 +3,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.Normalizer;
+import java.util.Locale;
 
 public class PaperChecker {
     public static void main(String[] args) {
@@ -23,6 +25,10 @@ public class PaperChecker {
             //文件读取，“UTF-8”形式
             String originalText = readFile(originalPath);
             String plagiarizedText = readFile(plagiarizedPath);
+
+            //统一文本格式，将文本规范化，减少空白、标点等的差异干扰,此处两个字符串采用缩写首字母形式
+            String N_O = normalizedText(originalPath);
+            String N_P = normalizedText(plagiarizedPath);
         }
 
     }
@@ -44,5 +50,18 @@ public class PaperChecker {
         Files.write(path, content.getBytes(StandardCharsets.UTF_8));
     }
 
+    /*文本规范化，Unicode规范化（NFKC）：统一全角/半角、兼容字符等
+    去除空格、换行、制表符、所有Unicode标点，英文转小写
+    */
+    private static String normalizedText(String text){
+        if(text == null){
+            return "";
+        }
+        String normalized = Normalizer.normalize(text,Normalizer.Form.NFKC);
+        normalized = normalized.replaceAll("\\s+","");
+        normalized = normalized.replaceAll("\\p{P}+","");
+        normalized = normalized.toLowerCase(Locale.ROOT);
+        return normalized;
+    }
 
 }
