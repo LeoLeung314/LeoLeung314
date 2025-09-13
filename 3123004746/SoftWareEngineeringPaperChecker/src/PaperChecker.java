@@ -17,9 +17,9 @@ public class PaperChecker {
 
 
         //获取路径，路径为相对于当前工作目录的绝对路径
-        Path originalPath = toAbosolute(Paths.get(args[0]));
-        Path plagiarizedPath = toAbosolute(Paths.get(args[1]));
-        Path outputPath = toAbosolute(Paths.get(args[2]));
+        Path originalPath = toAbsolute(Paths.get(args[0]));
+        Path plagiarizedPath = toAbsolute(Paths.get(args[1]));
+        Path outputPath = toAbsolute(Paths.get(args[2]));
 
         try{
             //文件读取，“UTF-8”形式
@@ -27,11 +27,11 @@ public class PaperChecker {
             String plagiarizedText = readFile(plagiarizedPath);
 
             //统一文本格式，将文本规范化，减少空白、标点等的差异干扰,此处两个字符串采用缩写首字母形式
-            String N_O = normalizedText(originalText);
-            String N_P = normalizedText(plagiarizedText);
+            String normalizedOriginal = normalizedText(originalText);
+            String normalizedPlagiarized = normalizedText(plagiarizedText);
 
             //相似度计算，使用最长公共子序列（LCS），以“原文长度”为分母
-            double similarity = Similarity(N_O,N_P);
+            double similarity = calculateSimilarity(normalizedOriginal,normalizedPlagiarized);
 
 
             //格式化输出到文件当中，精确到小数点后两位
@@ -66,8 +66,9 @@ public class PaperChecker {
         Files.write(path, content.getBytes(StandardCharsets.UTF_8));
     }
 
-    private static Path toAbosolute(Path path){
-        Path base = Paths.get(System.getProperty("user.dir"));//当前工作目录
+    private static Path toAbsolute(Path path){
+        //当前工作目录
+        Path base = Paths.get(System.getProperty("user.dir"));
         return path.isAbsolute()?path.normalize():base.resolve(path).normalize();
     }
 
@@ -89,35 +90,37 @@ public class PaperChecker {
     }
 
     // 计算相似度：LCS(原文，抄袭)/原文长度
-    private static double Similarity(String original, String plagiarized){
+    private static double calculateSimilarity(String original, String plagiarized){
         if(original.isEmpty()){
             return plagiarized.isEmpty()?1.00:0.00;
         }
-        int lcs = LCS(original,plagiarized);
+        int lcs = longestCommonSubsequence(original,plagiarized);
         return  (double) lcs / (double) original.length();
     }
 
 
     /*
-    * 最长公共子序列：Longest Common Subsequence  此处采用首字母简写
+    * 最长公共子序列：Longest Common Subsequence
     * 使用二维动态规划实现LCS，避免下标越界*/
-    private static int LCS(String original, String plagiarized){
+    private static int longestCommonSubsequence(String original, String plagiarized){
 
-        char[] O_C = original.toCharArray();
-        char[] P_C = plagiarized.toCharArray();
-        int O_L = O_C.length, P_L = P_C.length;
-        if(O_L==0 || P_L==0) return 0;
-        int[][] dp = new int[O_L+1][P_L+1];
-        for (int i = 1; i <=O_L; i++) {
-            for (int j = 1; j <=P_L; j++) {
-                if(O_C[i-1]==P_C[j-1]){
+        char[] originalCharArray = original.toCharArray();
+        char[] plagiarezedCharArray = plagiarized.toCharArray();
+        int originalLength = originalCharArray.length, plagiarezedLength = plagiarezedCharArray.length;
+        if(originalLength ==0 || plagiarezedLength ==0) {
+            return 0;
+        }
+        int[][] dp = new int[originalLength +1][plagiarezedLength +1];
+        for (int i = 1; i <= originalLength; i++) {
+            for (int j = 1; j <= plagiarezedLength; j++) {
+                if(originalCharArray[i-1]== plagiarezedCharArray[j-1]){
                     dp[i][j] = dp[i-1][j-1]+1;
                 }else{
                     dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
                 }
             }
         }
-        return dp[O_L][P_L];
+        return dp[originalLength][plagiarezedLength];
     }
 
 }
