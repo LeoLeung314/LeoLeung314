@@ -1,19 +1,19 @@
 软件工程第二次作业
 | PSP2.1 | Personal Software Process Stages | 预估耗时（分钟） | 实际耗时（分钟） |
 | :----- | :----- | :----- | :----- |
-| Planning | 计划 | 数据1-3 | 数据1-4 |
-| Estimate | 估计这个任务需要多少时间 | 数据2-3 | 数据2-4 |
-| Development | 开发 | 数据3-3 | 数据3-4 |
-| Analysis | 需求开发（包括学习新技术） | 数据4-3 | 数据4-4 |
-| Design Spec | 生成设计文档 | 数据5-3 | 数据5-4 |
-| Design Review | 设计复审 | 数据6-3 | 数据6-4 |
-| Coding Standard | 代码规范（为目前的开发制定合适的规范） | 数据7-3 | 数据7-4 |
-| Design | 具体设计 | 数据8-3 | 数据8-4 |
-| Coding | 具体编码 | 数据9-3 | 数据9-4 |
-| Code Review | 代码复审 | 数据10-3 | 数据10-4 |
-| Test | 数据11-2 | 测试（自我测试，修改代码，提交修改） | 数据11-4 |
-| Reporting | 报告 | 数据12-3 | 数据12-4 |
-| Test Report | 测试报告 | 数据13-3 | 数据13-4 |
-| Size Measurement | 计算工作量 | 数据14-3 | 数据14-4 |
-| Postmortem & Process Improvement Plan  | 事后总结，并提交过程改进计划 | 数据15-3 | 数据15-4 |
+| Planning | 计划 | 15 | 15 |
+| Estimate | 估计这个任务需要多少时间 | 360 | 数据2-4 |
+| Development | 开发 | 60 | 数据3-4 |
+| Analysis | 需求开发（包括学习新技术） | 120 | 数据4-4 |
+| Design Spec | 生成设计文档 | 60 | 数据5-4 |
+| Design Review | 设计复审 | 45 | 数据6-4 |
+| Coding Standard | 代码规范（为目前的开发制定合适的规范） | 20 | 20 |
+| Design | 具体设计 | 30 | 30 |
+| Coding | 具体编码 | 120 | 数据9-4 |
+| Code Review | 代码复审 | 30 | 30 |
+| Test | 测试（自我测试，修改代码，提交修改） | 60 | 数据11-4 |
+| Reporting | 报告 | 40 | 40 |
+| Test Report | 测试报告 | 40 | 40 |
+| Size Measurement | 计算工作量 | 30 | 数据14-4 |
+| Postmortem & Process Improvement Plan  | 事后总结，并提交过程改进计划 | 30 | 数据15-4 |
 |  | 合计 | 数据16-3 | 数据16-4 |
