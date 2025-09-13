@@ -16,10 +16,10 @@ public class PaperChecker {
         }
 
 
-        //获取路径
-        Path originalPath = Paths.get(args[0]);
-        Path plagiarizedPath = Paths.get(args[1]);
-        Path outputPath = Paths.get(args[2]);
+        //获取路径，路径为相对于当前工作目录的绝对路径
+        Path originalPath = toAbosolute(Paths.get(args[0]));
+        Path plagiarizedPath = toAbosolute(Paths.get(args[1]));
+        Path outputPath = toAbosolute(Paths.get(args[2]));
 
         try{
             //文件读取，“UTF-8”形式
@@ -65,6 +65,14 @@ public class PaperChecker {
         }
         Files.write(path, content.getBytes(StandardCharsets.UTF_8));
     }
+
+    private static Path toAbosolute(Path path){
+        Path base = Paths.get(System.getProperty("user.dir"));//当前工作目录
+        return path.isAbsolute()?path.normalize():base.resolve(path).normalize();
+    }
+
+
+
 
     /*文本规范化，Unicode规范化（NFKC）：统一全角/半角、兼容字符等
     去除空格、换行、制表符、所有Unicode标点，英文转小写
