@@ -1,7 +1,6 @@
 package Test;
 import org.junit.jupiter.api.Test;
 import paperchecker.PaperChecker;
-
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
